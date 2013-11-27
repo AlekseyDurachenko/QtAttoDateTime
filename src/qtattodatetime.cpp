@@ -69,7 +69,8 @@ void QtAttoDateTime::setTime(const QTime &time)
 
 void QtAttoDateTime::setDateTime(const QDateTime &dateTime)
 {
-    setUnixMilliSeconds(dateTime.toTime_t());
+    setUnixSeconds(dateTime.toTime_t());
+    incMilliSeconds(dateTime.time().msec());
 }
 
 int QtAttoDateTime::year() const
