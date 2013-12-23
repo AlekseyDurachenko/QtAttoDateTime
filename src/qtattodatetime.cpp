@@ -32,12 +32,12 @@ QtAttoDateTime::QtAttoDateTime(const QDateTime &dateTime)
 
 QtAttoDateTime::QtAttoDateTime(const QDate &date, const QTime &time)
 {
-    setDateTime(QDateTime(date, time));
+    setDateTime(QDateTime(date, time, Qt::UTC));
 }
 
 QtAttoDateTime::QtAttoDateTime(int year, int month, int day, int hour, int minute, int second, qint64 atto)
 {
-    setDateTime(QDateTime(QDate(year, month, day), QTime(hour, minute, second)));
+    setDateTime(QDateTime(QDate(year, month, day), QTime(hour, minute, second), Qt::UTC));
     incAttoSeconds(atto);
 }
 
@@ -64,7 +64,7 @@ void QtAttoDateTime::setDate(const QDate &date)
 
 void QtAttoDateTime::setTime(const QTime &time)
 {
-    setDateTime(QDateTime(toDate(), time));
+    setDateTime(QDateTime(toDate(), time, Qt::UTC));
 }
 
 void QtAttoDateTime::setDateTime(const QDateTime &dateTime)
