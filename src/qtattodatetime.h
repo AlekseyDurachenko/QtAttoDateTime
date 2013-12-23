@@ -17,6 +17,7 @@
 #define QTATTODATETIME_H
 
 #include <QDateTime>
+#include <QHash>
 #include "qtattotimedelta.h"
 
 // ------------------------------------------------------------------------
@@ -235,5 +236,11 @@ QDebug operator << (QDebug dbg, const QtAttoDateTime &dt);
 // ------------------------------------------------------------------------
 //QDataStream &operator << (QDataStream &out, const QgeDateTime &dt);
 //QDataStream &operator >> (QDataStream &out, const QgeDateTime &dt);
+
+// ------------------------------------------------------------------------
+inline uint qHash(const QtAttoDateTime &key)
+{
+    return qHash(key.unixSeconds()) ^ qHash(key.attoPersision());
+}
 
 #endif
