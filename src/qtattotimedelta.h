@@ -85,6 +85,7 @@ public:
     void setFemtoSeconds(qint64 femtoSeconds);
     void setAttoSeconds(qint64 attoSeconds);
     QtAttoTimeDelta addSeconds(qint64 seconds) const;
+    QtAttoTimeDelta addSecondsDouble(double seconds) const;
     QtAttoTimeDelta addDeciSeconds(qint64 deciSeconds) const;
     QtAttoTimeDelta addCentiSeconds(qint64 centiSeconds) const;
     QtAttoTimeDelta addMilliSeconds(qint64 milliSeconds) const;

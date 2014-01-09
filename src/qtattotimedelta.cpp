@@ -14,6 +14,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "qtattotimedelta.h"
+#include <math.h>
 #include <QDebug>
 
 using namespace attodatetime;
@@ -204,6 +205,14 @@ void QtAttoTimeDelta::setAttoSeconds(qint64 attoSeconds)
 QtAttoTimeDelta QtAttoTimeDelta::addSeconds(qint64 seconds) const
 {
     return QtAttoTimeDelta(mSec+seconds, mAts);
+}
+
+QtAttoTimeDelta QtAttoTimeDelta::addSecondsDouble(double seconds) const
+{
+    double fractpart, intpart;
+    fractpart = modf (seconds , &intpart);
+    return addSeconds(static_cast<qint64>(intpart))
+            .addAttoSeconds(static_cast<qint64>(fractpart*GAttoPrefix));
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addDeciSeconds(qint64 deciSeconds) const
