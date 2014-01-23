@@ -114,6 +114,11 @@ qint64 QtAttoTimeDelta::seconds() const
     return mSec;
 }
 
+double QtAttoTimeDelta::secondsDouble() const
+{
+    return static_cast<double>(mSec) + static_cast<double>(mAts) / GAttoPrefix;
+}
+
 qint64 QtAttoTimeDelta::deciSeconds() const
 {
     return mSec * GDeciPrefix + mAts / GDeciMul;

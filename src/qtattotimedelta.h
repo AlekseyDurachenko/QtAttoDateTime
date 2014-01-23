@@ -67,6 +67,7 @@ public:
 
     // Seconds
     qint64 seconds() const;
+    double secondsDouble() const;
     qint64 deciSeconds() const;
     qint64 centiSeconds() const;
     qint64 milliSeconds() const;

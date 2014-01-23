@@ -223,6 +223,11 @@ qint64 QtAttoDateTime::unixSeconds() const
     return mSec;
 }
 
+double QtAttoDateTime::unixSecondsDouble() const
+{
+    return static_cast<double>(mSec) + static_cast<double>(mAts) / GAttoPrefix;
+}
+
 qint64 QtAttoDateTime::unixDeciSeconds() const
 {
     return mSec * GDeciPrefix + mAts / GDeciMul;

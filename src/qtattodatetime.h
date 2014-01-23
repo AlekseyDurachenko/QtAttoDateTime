@@ -87,6 +87,7 @@ public:
 
     // Seconds
     qint64 unixSeconds() const;
+    double unixSecondsDouble() const;
     qint64 unixDeciSeconds() const;
     qint64 unixCentiSeconds() const;
     qint64 unixMilliSeconds() const;
