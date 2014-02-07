@@ -27,7 +27,7 @@ QtAttoTimeDelta::QtAttoTimeDelta(qint64 seconds, qint64 atto)
 void QtAttoTimeDelta::setDelta(qint64 seconds, qint64 atto)
 {
     mSec = seconds;
-    mAts = qAbs(atto) % GAttoPrefix;
+    mAts = qAbs(atto) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::incDelta(qint64 seconds, qint64 atto)
@@ -116,47 +116,47 @@ qint64 QtAttoTimeDelta::seconds() const
 
 double QtAttoTimeDelta::secondsDouble() const
 {
-    return static_cast<double>(mSec) + static_cast<double>(mAts) / GAttoPrefix;
+    return static_cast<double>(mSec) + static_cast<double>(mAts) / AttoPrefix;
 }
 
 qint64 QtAttoTimeDelta::deciSeconds() const
 {
-    return mSec * GDeciPrefix + mAts / GDeciMul;
+    return mSec * DeciPrefix + mAts / DeciMul;
 }
 
 qint64 QtAttoTimeDelta::centiSeconds() const
 {
-    return mSec * GCentiPrefix + mAts / GCentiMul;
+    return mSec * CentiPrefix + mAts / CentiMul;
 }
 
 qint64 QtAttoTimeDelta::milliSeconds() const
 {
-    return mSec * GMilliPrefix + mAts / GMilliMul;
+    return mSec * MilliPrefix + mAts / MilliMul;
 }
 
 qint64 QtAttoTimeDelta::microSeconds() const
 {
-    return mSec * GMicroPrefix + mAts / GMicroMul;
+    return mSec * MicroPrefix + mAts / MicroMul;
 }
 
 qint64 QtAttoTimeDelta::nanoSeconds() const
 {
-    return mSec * GNanoPrefix + mAts / GNanoMul;
+    return mSec * NanoPrefix + mAts / NanoMul;
 }
 
 qint64 QtAttoTimeDelta::picoSeconds() const
 {
-    return mSec * GFemtoPrefix + mAts / GFemtoMul;
+    return mSec * FemtoPrefix + mAts / FemtoMul;
 }
 
 qint64 QtAttoTimeDelta::femtoSeconds() const
 {
-    return mSec * GFemtoPrefix + mAts / GFemtoMul;
+    return mSec * FemtoPrefix + mAts / FemtoMul;
 }
 
 qint64 QtAttoTimeDelta::attoSeconds() const
 {
-    return mSec * GAttoPrefix + mAts;
+    return mSec * AttoPrefix + mAts;
 }
 
 void QtAttoTimeDelta::setDeciSeconds(qint64 deciSeconds)
@@ -217,7 +217,7 @@ QtAttoTimeDelta QtAttoTimeDelta::addSecondsDouble(double seconds) const
     double fractpart, intpart;
     fractpart = modf (seconds , &intpart);
     return addSeconds(static_cast<qint64>(intpart))
-            .addAttoSeconds(static_cast<qint64>(fractpart*GAttoPrefix));
+            .addAttoSeconds(static_cast<qint64>(fractpart*AttoPrefix));
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addDeciSeconds(qint64 deciSeconds) const
@@ -278,44 +278,44 @@ QtAttoTimeDelta QtAttoTimeDelta::addAttoSeconds(qint64 attoSeconds) const
 
 void QtAttoTimeDelta::incDeciSeconds(qint64 deciSeconds)
 {
-    mSec += deciSeconds / GDeciPrefix;
-    incAttoSeconds((deciSeconds%GDeciPrefix)*GDeciMul);
+    mSec += deciSeconds / DeciPrefix;
+    incAttoSeconds((deciSeconds%DeciPrefix)*DeciMul);
 }
 
 void QtAttoTimeDelta::incCentiSeconds(qint64 centiSeconds)
 {
-    mSec += centiSeconds / GCentiPrefix;
-    incAttoSeconds((centiSeconds%GCentiPrefix)*GCentiMul);
+    mSec += centiSeconds / CentiPrefix;
+    incAttoSeconds((centiSeconds%CentiPrefix)*CentiMul);
 }
 
 void QtAttoTimeDelta::incMilliSeconds(qint64 milliSeconds)
 {
-    mSec += milliSeconds / GMilliPrefix;
-    incAttoSeconds((milliSeconds%GMilliPrefix)*GMilliMul);
+    mSec += milliSeconds / MilliPrefix;
+    incAttoSeconds((milliSeconds%MilliPrefix)*MilliMul);
 }
 
 void QtAttoTimeDelta::incMicroSeconds(qint64 microSeconds)
 {
-    mSec += microSeconds / GMicroPrefix;
-    incAttoSeconds((microSeconds%GMicroPrefix)*GMicroMul);
+    mSec += microSeconds / MicroPrefix;
+    incAttoSeconds((microSeconds%MicroPrefix)*MicroMul);
 }
 
 void QtAttoTimeDelta::incNanoSeconds(qint64 nanoSeconds)
 {
-    mSec += nanoSeconds / GNanoPrefix;
-    incAttoSeconds((nanoSeconds%GNanoPrefix)*GNanoMul);
+    mSec += nanoSeconds / NanoPrefix;
+    incAttoSeconds((nanoSeconds%NanoPrefix)*NanoMul);
 }
 
 void QtAttoTimeDelta::incPicoSeconds(qint64 picoSeconds)
 {
-    mSec += picoSeconds / GPicoPrefix;
-    incAttoSeconds((picoSeconds%GPicoPrefix)*GPicoMul);
+    mSec += picoSeconds / PicoPrefix;
+    incAttoSeconds((picoSeconds%PicoPrefix)*PicoMul);
 }
 
 void QtAttoTimeDelta::incFemtoSeconds(qint64 femtoSeconds)
 {
-    mSec += femtoSeconds / GFemtoPrefix;
-    incAttoSeconds((femtoSeconds%GFemtoPrefix)*GFemtoMul);
+    mSec += femtoSeconds / FemtoPrefix;
+    incAttoSeconds((femtoSeconds%FemtoPrefix)*FemtoMul);
 }
 
 void QtAttoTimeDelta::incAttoSeconds(qint64 attoSeconds)
@@ -323,54 +323,54 @@ void QtAttoTimeDelta::incAttoSeconds(qint64 attoSeconds)
     mAts += attoSeconds;
     if (mAts > 0)
     {
-        mSec += mAts / GAttoPrefix;
-        mAts %= GAttoPrefix;
+        mSec += mAts / AttoPrefix;
+        mAts %= AttoPrefix;
     }
     else if (mAts < 0)
     {
-        mSec -= qAbs(mAts)/GAttoPrefix;
-        mAts  = qAbs(mAts)%GAttoPrefix;
+        mSec -= qAbs(mAts)/AttoPrefix;
+        mAts  = qAbs(mAts)%AttoPrefix;
         if (mAts > 0)
         {
             mSec -= 1;
-            mAts  = GAttoPrefix - mAts;
+            mAts  = AttoPrefix - mAts;
         }
     }
 }
 
 qint64 QtAttoTimeDelta::deciPersision() const
 {
-    return mAts / GDeciMul;
+    return mAts / DeciMul;
 }
 
 qint64 QtAttoTimeDelta::centiPersision() const
 {
-    return mAts / GCentiMul;
+    return mAts / CentiMul;
 }
 
 qint64 QtAttoTimeDelta::milliPersision() const
 {
-    return mAts / GMilliMul;
+    return mAts / MilliMul;
 }
 
 qint64 QtAttoTimeDelta::microPersision() const
 {
-    return mAts / GMicroMul;
+    return mAts / MicroMul;
 }
 
 qint64 QtAttoTimeDelta::nanoPersision() const
 {
-    return mAts / GNanoMul;
+    return mAts / NanoMul;
 }
 
 qint64 QtAttoTimeDelta::picoPersision() const
 {
-    return mAts / GPicoMul;
+    return mAts / PicoMul;
 }
 
 qint64 QtAttoTimeDelta::femtoPersision() const
 {
-    return mAts / GFemtoMul;
+    return mAts / FemtoMul;
 }
 
 qint64 QtAttoTimeDelta::attoPersision() const
@@ -380,42 +380,42 @@ qint64 QtAttoTimeDelta::attoPersision() const
 
 void QtAttoTimeDelta::setDeciPersision(qint64 deciSeconds)
 {
-    mAts = (deciSeconds*GDeciMul) % GAttoPrefix;
+    mAts = (deciSeconds*DeciMul) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::setCentiPersision(qint64 centiSeconds)
 {
-    mAts = (centiSeconds*GCentiMul) % GAttoPrefix;
+    mAts = (centiSeconds*CentiMul) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::setMilliPersision(qint64 milliSeconds)
 {
-    mAts = (milliSeconds*GMilliMul) % GAttoPrefix;
+    mAts = (milliSeconds*MilliMul) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::setMicroPersision(qint64 microSeconds)
 {
-    mAts = (microSeconds*GMicroMul) % GAttoPrefix;
+    mAts = (microSeconds*MicroMul) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::setNanoPersision(qint64 nanoSeconds)
 {
-    mAts = (nanoSeconds*GNanoMul) % GAttoPrefix;
+    mAts = (nanoSeconds*NanoMul) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::setPicoPersision(qint64 picoSeconds)
 {
-    mAts = (picoSeconds*GPicoMul) % GAttoPrefix;
+    mAts = (picoSeconds*PicoMul) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::setFemtoPersision(qint64 femtoSeconds)
 {
-    mAts = (femtoSeconds*GFemtoMul) % GAttoPrefix;
+    mAts = (femtoSeconds*FemtoMul) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::setAttoPersision(qint64 attoSeconds)
 {
-    mAts = attoSeconds % GAttoPrefix;
+    mAts = attoSeconds % AttoPrefix;
 }
 
 QtAttoTimeDelta &QtAttoTimeDelta::operator = (const QtAttoTimeDelta &other)

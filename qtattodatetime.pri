@@ -14,7 +14,7 @@ OTHER_FILES +=                              \
     $$PWD/src/QtAttoDateTime                \
     $$PWD/src/QtAttoTimeDelta               \
     $$PWD/src/QtAttoTimeConst               \
-    $$PWD/README                            \
+    $$PWD/README.md                         \
     $$PWD/LICENSE                           \
     $$PWD/AUTHORS                           \
     $$PWD/CHANGELOG                         \

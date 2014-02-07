@@ -1,4 +1,4 @@
-// Copyright 2013, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
+// Copyright 2013-2014, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,27 +15,29 @@
 #ifndef QTATTOTIMECONST_H
 #define QTATTOTIMECONST_H
 
+#include <global.h>
+
 // ----------------------------------------------------------------------
 namespace attodatetime {
 // ----------------------------------------------------------------------
 
-const qint64 GAttoPrefix    = Q_INT64_C(1000000000000000000);
-const qint64 GFemtoPrefix   = Q_INT64_C(1000000000000000);
-const qint64 GPicoPrefix    = Q_INT64_C(1000000000000);
-const qint64 GNanoPrefix    = Q_INT64_C(1000000000);
-const qint64 GMicroPrefix   = Q_INT64_C(1000000);
-const qint64 GMilliPrefix   = Q_INT64_C(1000);
-const qint64 GCentiPrefix   = Q_INT64_C(100);
-const qint64 GDeciPrefix    = Q_INT64_C(10);
+const qint64 AttoPrefix    = Q_INT64_C(1000000000000000000);
+const qint64 FemtoPrefix   = Q_INT64_C(1000000000000000);
+const qint64 PicoPrefix    = Q_INT64_C(1000000000000);
+const qint64 NanoPrefix    = Q_INT64_C(1000000000);
+const qint64 MicroPrefix   = Q_INT64_C(1000000);
+const qint64 MilliPrefix   = Q_INT64_C(1000);
+const qint64 CentiPrefix   = Q_INT64_C(100);
+const qint64 DeciPrefix    = Q_INT64_C(10);
 
-const qint64 GAttoMul   = Q_INT64_C(1);
-const qint64 GFemtoMul  = Q_INT64_C(1000);
-const qint64 GPicoMul   = Q_INT64_C(1000000);
-const qint64 GNanoMul   = Q_INT64_C(1000000000);
-const qint64 GMicroMul  = Q_INT64_C(1000000000000);
-const qint64 GMilliMul  = Q_INT64_C(1000000000000000);
-const qint64 GCentiMul  = Q_INT64_C(10000000000000000);
-const qint64 GDeciMul   = Q_INT64_C(100000000000000000);
+const qint64 AttoMul   = Q_INT64_C(1);
+const qint64 FemtoMul  = Q_INT64_C(1000);
+const qint64 PicoMul   = Q_INT64_C(1000000);
+const qint64 NanoMul   = Q_INT64_C(1000000000);
+const qint64 MicroMul  = Q_INT64_C(1000000000000);
+const qint64 MilliMul  = Q_INT64_C(1000000000000000);
+const qint64 CentiMul  = Q_INT64_C(10000000000000000);
+const qint64 DeciMul   = Q_INT64_C(100000000000000000);
 
 // ----------------------------------------------------------------------
 } // namespace attodatetime

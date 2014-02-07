@@ -28,11 +28,11 @@ class QtAttoDateTime;
 class QtAttoTimeDelta
 {
     friend inline bool operator == (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator > (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator < (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator != (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
     friend inline bool operator >= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
     friend inline bool operator <= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator != (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator >  (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator <  (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
     friend QtAttoTimeDelta operator + (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
     friend QtAttoTimeDelta operator - (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
     friend QtAttoTimeDelta &operator += (QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
@@ -140,14 +140,9 @@ inline bool operator == (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
     return (a.mSec == b.mSec) && (a.mAts == b.mAts);
 }
 
-inline bool operator > (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
+inline bool operator != (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec > b.mSec) || (((a.mSec == b.mSec) && (a.mAts > b.mAts)));
-}
-
-inline bool operator < (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
-{
-    return (a.mSec < b.mSec) || (((a.mSec == b.mSec) && (a.mAts < b.mAts)));
+    return (a.mSec != b.mSec) || (a.mAts != b.mAts);
 }
 
 inline bool operator >= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
@@ -160,9 +155,14 @@ inline bool operator <= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
     return (a.mSec < b.mSec) || (((a.mSec == b.mSec) && (a.mAts <= b.mAts)));
 }
 
-inline bool operator != (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
+inline bool operator > (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec != b.mSec) || (a.mAts != b.mAts);
+    return (a.mSec > b.mSec) || (((a.mSec == b.mSec) && (a.mAts > b.mAts)));
+}
+
+inline bool operator < (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
+{
+    return (a.mSec < b.mSec) || (((a.mSec == b.mSec) && (a.mAts < b.mAts)));
 }
 
 // ------------------------------------------------------------------------
