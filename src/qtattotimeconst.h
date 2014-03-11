@@ -15,7 +15,7 @@
 #ifndef QTATTOTIMECONST_H
 #define QTATTOTIMECONST_H
 
-#include <global.h>
+#include <QtGlobal>
 
 // ----------------------------------------------------------------------
 namespace attodatetime {
