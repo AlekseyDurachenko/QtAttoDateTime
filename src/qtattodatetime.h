@@ -40,7 +40,7 @@ class QtAttoDateTime
 public:
     // Constructors
     explicit QtAttoDateTime(qint64 seconds = 0, qint64 atto = 0);
-    explicit QtAttoDateTime(const QDateTime &datetime);
+    QtAttoDateTime(const QDateTime &datetime);
     explicit QtAttoDateTime(const QDate &toDate, const QTime &toTime = QTime());
     QtAttoDateTime(int year, int month, int day, int hour, int minute, int second, qint64 atto);
 
@@ -163,7 +163,7 @@ public:
     static qint64 microFromAtto(qint64 attoSeconds);
     static qint64 nanoFromAtto(qint64 attoSeconds);
     static qint64 picoFromAtto(qint64 attoSeconds);
-    static qint64 femtoFromAtto(qint64 attoSeconds);  
+    static qint64 femtoFromAtto(qint64 attoSeconds);
 
     // Conversion
     static QtAttoDateTime fromDateTime(const QDateTime &dateTime);
