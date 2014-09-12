@@ -1,4 +1,4 @@
-// Copyright (C) 2013, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
+// Copyright (C) 2013-2014, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -12,12 +12,12 @@
 //
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #include "qtattotimedelta.h"
 #include <math.h>
 #include <QDebug>
-
 using namespace attodatetime;
+
 
 QtAttoTimeDelta::QtAttoTimeDelta(qint64 seconds, qint64 atto)
 {
@@ -26,190 +26,190 @@ QtAttoTimeDelta::QtAttoTimeDelta(qint64 seconds, qint64 atto)
 
 void QtAttoTimeDelta::setDelta(qint64 seconds, qint64 atto)
 {
-    mSec = seconds;
-    mAts = qAbs(atto) % AttoPrefix;
+    m_sec = seconds;
+    m_ats = qAbs(atto) % AttoPrefix;
 }
 
 void QtAttoTimeDelta::incDelta(qint64 seconds, qint64 atto)
 {
-    mSec += seconds;
+    m_sec += seconds;
     incAttoSeconds(atto);
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addDelta(qint64 seconds, qint64 atto) const
 {
-    QtAttoTimeDelta result(mSec + seconds, atto);
+    QtAttoTimeDelta result(m_sec + seconds, atto);
     result.incAttoSeconds(atto);
     return result;
 }
 
 qint64 QtAttoTimeDelta::days() const
 {
-    return mSec / 86400;
+    return m_sec / 86400;
 }
 
 qint64 QtAttoTimeDelta::hours() const
 {
-    return mSec / 3600;
+    return m_sec / 3600;
 }
 
 qint64 QtAttoTimeDelta::minutes() const
 {
-    return mSec / 60;
+    return m_sec / 60;
 }
 
 void QtAttoTimeDelta::setDays(qint64 days)
 {
-    mSec = days * 86400;
+    m_sec = days * 86400;
 }
 
 void QtAttoTimeDelta::setHours(qint64 hours)
 {
-    mSec = hours * 3600;
+    m_sec = hours * 3600;
 }
 
 void QtAttoTimeDelta::setMinutes(qint64 minutes)
 {
-    mSec = minutes * 60;
+    m_sec = minutes * 60;
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addDays(qint64 day) const
 {
-    return QtAttoTimeDelta(mSec + day*86400, mAts);
+    return QtAttoTimeDelta(m_sec + day*86400, m_ats);
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addHours(qint64 hour) const
 {
-    return QtAttoTimeDelta(mSec + hour*3600, mAts);
+    return QtAttoTimeDelta(m_sec + hour*3600, m_ats);
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addMinutes(qint64 minute) const
 {
-    return QtAttoTimeDelta(mSec + minute*60, mAts);
+    return QtAttoTimeDelta(m_sec + minute*60, m_ats);
 }
 
 void QtAttoTimeDelta::incDays(qint64 day)
 {
-    mSec += day * 86400;
+    m_sec += day * 86400;
 }
 
 void QtAttoTimeDelta::incHours(qint64 hour)
 {
-    mSec += hour * 3600;
+    m_sec += hour * 3600;
 }
 
 void QtAttoTimeDelta::incMinutes(qint64 minute)
 {
-    mSec += minute * 60;
+    m_sec += minute * 60;
 }
 
 void QtAttoTimeDelta::setSeconds(qint64 seconds)
 {
-    mSec = seconds;
-    mAts = 0;
+    m_sec = seconds;
+    m_ats = 0;
 }
 
 qint64 QtAttoTimeDelta::seconds() const
 {
-    return mSec;
+    return m_sec;
 }
 
 double QtAttoTimeDelta::secondsDouble() const
 {
-    return static_cast<double>(mSec) + static_cast<double>(mAts) / AttoPrefix;
+    return static_cast<double>(m_sec) + static_cast<double>(m_ats) / AttoPrefix;
 }
 
 qint64 QtAttoTimeDelta::deciSeconds() const
 {
-    return mSec * DeciPrefix + mAts / DeciMul;
+    return m_sec * DeciPrefix + m_ats / DeciMul;
 }
 
 qint64 QtAttoTimeDelta::centiSeconds() const
 {
-    return mSec * CentiPrefix + mAts / CentiMul;
+    return m_sec * CentiPrefix + m_ats / CentiMul;
 }
 
 qint64 QtAttoTimeDelta::milliSeconds() const
 {
-    return mSec * MilliPrefix + mAts / MilliMul;
+    return m_sec * MilliPrefix + m_ats / MilliMul;
 }
 
 qint64 QtAttoTimeDelta::microSeconds() const
 {
-    return mSec * MicroPrefix + mAts / MicroMul;
+    return m_sec * MicroPrefix + m_ats / MicroMul;
 }
 
 qint64 QtAttoTimeDelta::nanoSeconds() const
 {
-    return mSec * NanoPrefix + mAts / NanoMul;
+    return m_sec * NanoPrefix + m_ats / NanoMul;
 }
 
 qint64 QtAttoTimeDelta::picoSeconds() const
 {
-    return mSec * FemtoPrefix + mAts / FemtoMul;
+    return m_sec * FemtoPrefix + m_ats / FemtoMul;
 }
 
 qint64 QtAttoTimeDelta::femtoSeconds() const
 {
-    return mSec * FemtoPrefix + mAts / FemtoMul;
+    return m_sec * FemtoPrefix + m_ats / FemtoMul;
 }
 
 qint64 QtAttoTimeDelta::attoSeconds() const
 {
-    return mSec * AttoPrefix + mAts;
+    return m_sec * AttoPrefix + m_ats;
 }
 
 void QtAttoTimeDelta::setDeciSeconds(qint64 deciSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incDeciSeconds(deciSeconds);
 }
 
 void QtAttoTimeDelta::setCentiSeconds(qint64 centiSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incCentiSeconds(centiSeconds);
 }
 
 void QtAttoTimeDelta::setMilliSeconds(qint64 milliSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incMilliSeconds(milliSeconds);
 }
 
 void QtAttoTimeDelta::setMicroSeconds(qint64 microSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incMicroSeconds(microSeconds);
 }
 
 void QtAttoTimeDelta::setNanoSeconds(qint64 nanoSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incNanoSeconds(nanoSeconds);
 }
 
 void QtAttoTimeDelta::setPicoSeconds(qint64 picoSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incPicoSeconds(picoSeconds);
 }
 
 void QtAttoTimeDelta::setFemtoSeconds(qint64 femtoSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incFemtoSeconds(femtoSeconds);
 }
 
 void QtAttoTimeDelta::setAttoSeconds(qint64 attoSeconds)
 {
-    mSec = mAts = 0;
+    m_sec = m_ats = 0;
     incAttoSeconds(attoSeconds);
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addSeconds(qint64 seconds) const
 {
-    return QtAttoTimeDelta(mSec+seconds, mAts);
+    return QtAttoTimeDelta(m_sec+seconds, m_ats);
 }
 
 QtAttoTimeDelta QtAttoTimeDelta::addSecondsDouble(double seconds) const
@@ -278,144 +278,144 @@ QtAttoTimeDelta QtAttoTimeDelta::addAttoSeconds(qint64 attoSeconds) const
 
 void QtAttoTimeDelta::incDeciSeconds(qint64 deciSeconds)
 {
-    mSec += deciSeconds / DeciPrefix;
+    m_sec += deciSeconds / DeciPrefix;
     incAttoSeconds((deciSeconds%DeciPrefix)*DeciMul);
 }
 
 void QtAttoTimeDelta::incCentiSeconds(qint64 centiSeconds)
 {
-    mSec += centiSeconds / CentiPrefix;
+    m_sec += centiSeconds / CentiPrefix;
     incAttoSeconds((centiSeconds%CentiPrefix)*CentiMul);
 }
 
 void QtAttoTimeDelta::incMilliSeconds(qint64 milliSeconds)
 {
-    mSec += milliSeconds / MilliPrefix;
+    m_sec += milliSeconds / MilliPrefix;
     incAttoSeconds((milliSeconds%MilliPrefix)*MilliMul);
 }
 
 void QtAttoTimeDelta::incMicroSeconds(qint64 microSeconds)
 {
-    mSec += microSeconds / MicroPrefix;
+    m_sec += microSeconds / MicroPrefix;
     incAttoSeconds((microSeconds%MicroPrefix)*MicroMul);
 }
 
 void QtAttoTimeDelta::incNanoSeconds(qint64 nanoSeconds)
 {
-    mSec += nanoSeconds / NanoPrefix;
+    m_sec += nanoSeconds / NanoPrefix;
     incAttoSeconds((nanoSeconds%NanoPrefix)*NanoMul);
 }
 
 void QtAttoTimeDelta::incPicoSeconds(qint64 picoSeconds)
 {
-    mSec += picoSeconds / PicoPrefix;
+    m_sec += picoSeconds / PicoPrefix;
     incAttoSeconds((picoSeconds%PicoPrefix)*PicoMul);
 }
 
 void QtAttoTimeDelta::incFemtoSeconds(qint64 femtoSeconds)
 {
-    mSec += femtoSeconds / FemtoPrefix;
+    m_sec += femtoSeconds / FemtoPrefix;
     incAttoSeconds((femtoSeconds%FemtoPrefix)*FemtoMul);
 }
 
 void QtAttoTimeDelta::incAttoSeconds(qint64 attoSeconds)
 {
-    mAts += attoSeconds;
-    if (mAts > 0)
+    m_ats += attoSeconds;
+    if (m_ats > 0)
     {
-        mSec += mAts / AttoPrefix;
-        mAts %= AttoPrefix;
+        m_sec += m_ats / AttoPrefix;
+        m_ats %= AttoPrefix;
     }
-    else if (mAts < 0)
+    else if (m_ats < 0)
     {
-        mSec -= qAbs(mAts)/AttoPrefix;
-        mAts  = qAbs(mAts)%AttoPrefix;
-        if (mAts > 0)
+        m_sec -= qAbs(m_ats)/AttoPrefix;
+        m_ats  = qAbs(m_ats)%AttoPrefix;
+        if (m_ats > 0)
         {
-            mSec -= 1;
-            mAts  = AttoPrefix - mAts;
+            m_sec -= 1;
+            m_ats  = AttoPrefix - m_ats;
         }
     }
 }
 
-qint64 QtAttoTimeDelta::deciPersision() const
+qint64 QtAttoTimeDelta::deciPrecision() const
 {
-    return mAts / DeciMul;
+    return m_ats / DeciMul;
 }
 
-qint64 QtAttoTimeDelta::centiPersision() const
+qint64 QtAttoTimeDelta::centiPrecision() const
 {
-    return mAts / CentiMul;
+    return m_ats / CentiMul;
 }
 
-qint64 QtAttoTimeDelta::milliPersision() const
+qint64 QtAttoTimeDelta::milliPrecision() const
 {
-    return mAts / MilliMul;
+    return m_ats / MilliMul;
 }
 
-qint64 QtAttoTimeDelta::microPersision() const
+qint64 QtAttoTimeDelta::microPrecision() const
 {
-    return mAts / MicroMul;
+    return m_ats / MicroMul;
 }
 
-qint64 QtAttoTimeDelta::nanoPersision() const
+qint64 QtAttoTimeDelta::nanoPrecision() const
 {
-    return mAts / NanoMul;
+    return m_ats / NanoMul;
 }
 
-qint64 QtAttoTimeDelta::picoPersision() const
+qint64 QtAttoTimeDelta::picoPrecision() const
 {
-    return mAts / PicoMul;
+    return m_ats / PicoMul;
 }
 
-qint64 QtAttoTimeDelta::femtoPersision() const
+qint64 QtAttoTimeDelta::femtoPrecision() const
 {
-    return mAts / FemtoMul;
+    return m_ats / FemtoMul;
 }
 
-qint64 QtAttoTimeDelta::attoPersision() const
+qint64 QtAttoTimeDelta::attoPrecision() const
 {
-    return mAts;
+    return m_ats;
 }
 
-void QtAttoTimeDelta::setDeciPersision(qint64 deciSeconds)
+void QtAttoTimeDelta::setDeciPrecision(qint64 deciSeconds)
 {
-    mAts = (deciSeconds*DeciMul) % AttoPrefix;
+    m_ats = (deciSeconds*DeciMul) % AttoPrefix;
 }
 
-void QtAttoTimeDelta::setCentiPersision(qint64 centiSeconds)
+void QtAttoTimeDelta::setCentiPrecision(qint64 centiSeconds)
 {
-    mAts = (centiSeconds*CentiMul) % AttoPrefix;
+    m_ats = (centiSeconds*CentiMul) % AttoPrefix;
 }
 
-void QtAttoTimeDelta::setMilliPersision(qint64 milliSeconds)
+void QtAttoTimeDelta::setMilliPrecision(qint64 milliSeconds)
 {
-    mAts = (milliSeconds*MilliMul) % AttoPrefix;
+    m_ats = (milliSeconds*MilliMul) % AttoPrefix;
 }
 
-void QtAttoTimeDelta::setMicroPersision(qint64 microSeconds)
+void QtAttoTimeDelta::setMicroPrecision(qint64 microSeconds)
 {
-    mAts = (microSeconds*MicroMul) % AttoPrefix;
+    m_ats = (microSeconds*MicroMul) % AttoPrefix;
 }
 
-void QtAttoTimeDelta::setNanoPersision(qint64 nanoSeconds)
+void QtAttoTimeDelta::setNanoPrecision(qint64 nanoSeconds)
 {
-    mAts = (nanoSeconds*NanoMul) % AttoPrefix;
+    m_ats = (nanoSeconds*NanoMul) % AttoPrefix;
 }
 
-void QtAttoTimeDelta::setPicoPersision(qint64 picoSeconds)
+void QtAttoTimeDelta::setPicoPrecision(qint64 picoSeconds)
 {
-    mAts = (picoSeconds*PicoMul) % AttoPrefix;
+    m_ats = (picoSeconds*PicoMul) % AttoPrefix;
 }
 
-void QtAttoTimeDelta::setFemtoPersision(qint64 femtoSeconds)
+void QtAttoTimeDelta::setFemtoPrecision(qint64 femtoSeconds)
 {
-    mAts = (femtoSeconds*FemtoMul) % AttoPrefix;
+    m_ats = (femtoSeconds*FemtoMul) % AttoPrefix;
 }
 
-void QtAttoTimeDelta::setAttoPersision(qint64 attoSeconds)
+void QtAttoTimeDelta::setAttoPrecision(qint64 attoSeconds)
 {
-    mAts = attoSeconds % AttoPrefix;
+    m_ats = attoSeconds % AttoPrefix;
 }
 
 QtAttoTimeDelta &QtAttoTimeDelta::operator = (const QtAttoTimeDelta &other)
@@ -423,41 +423,42 @@ QtAttoTimeDelta &QtAttoTimeDelta::operator = (const QtAttoTimeDelta &other)
     if (this == &other)
         return *this;
 
-    this->mSec = other.mSec;
-    this->mAts = other.mAts;
+    this->m_sec = other.m_sec;
+    this->m_ats = other.m_ats;
 
     return *this;
 }
 
 QtAttoTimeDelta operator + (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    QtAttoTimeDelta result(a.mSec + b.mSec, a.mAts);
-    result.incAttoSeconds(b.mAts);
+    QtAttoTimeDelta result(a.m_sec + b.m_sec, a.m_ats);
+    result.incAttoSeconds(b.m_ats);
     return result;
 }
 
 QtAttoTimeDelta operator - (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    QtAttoTimeDelta result(a.mSec - b.mSec, a.mAts);
-    result.incAttoSeconds(-b.mAts);
+    QtAttoTimeDelta result(a.m_sec - b.m_sec, a.m_ats);
+    result.incAttoSeconds(-b.m_ats);
     return result;
 }
 
 QtAttoTimeDelta &operator += (QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    a.mSec += b.mSec;
-    a.incAttoSeconds(b.mAts);
+    a.m_sec += b.m_sec;
+    a.incAttoSeconds(b.m_ats);
     return a;
 }
 
 QtAttoTimeDelta &operator -= (QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    a.mSec -= b.mSec;
-    a.incAttoSeconds(-b.mAts);
+    a.m_sec -= b.m_sec;
+    a.incAttoSeconds(-b.m_ats);
     return a;
 }
 
 QDebug operator << (QDebug dbg, const QtAttoTimeDelta &dt)
 {
-    return dbg.nospace() << "(Sec = " << dt.mSec << ", AttoPersision = " << dt.mAts << ")";
+    return dbg.nospace() << "(Sec = " << dt.m_sec
+                         << ", AttoPersision = " << dt.m_ats << ")";
 }

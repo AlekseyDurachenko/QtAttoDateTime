@@ -1,4 +1,4 @@
-// Copyright (C) 2013, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
+// Copyright (C) 2013-2014, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -12,39 +12,25 @@
 //
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #ifndef QTATTODATETIME_H
 #define QTATTODATETIME_H
 
+#include "qtattotimedelta.h"
 #include <QDateTime>
 #include <QHash>
-#include "qtattotimedelta.h"
-
-// ------------------------------------------------------------------------
 class QDebug;
 
-// ------------------------------------------------------------------------
+
 class QtAttoDateTime
 {
-    friend inline bool operator == (const QtAttoDateTime &a, const QtAttoDateTime &b);
-    friend inline bool operator > (const QtAttoDateTime &a, const QtAttoDateTime &b);
-    friend inline bool operator < (const QtAttoDateTime &a, const QtAttoDateTime &b);
-    friend inline bool operator >= (const QtAttoDateTime &a, const QtAttoDateTime &b);
-    friend inline bool operator <= (const QtAttoDateTime &a, const QtAttoDateTime &b);
-    friend inline bool operator != (const QtAttoDateTime &a, const QtAttoDateTime &b);
-    friend QtAttoDateTime operator + (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QtAttoDateTime operator - (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QtAttoDateTime &operator += (QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QtAttoDateTime &operator -= (QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QDebug operator << (QDebug dbg, const QtAttoDateTime &dt);
 public:
-    // Constructors
     explicit QtAttoDateTime(qint64 seconds = 0, qint64 atto = 0);
-    QtAttoDateTime(const QDateTime &datetime);
+    explicit QtAttoDateTime(const QDateTime &datetime);
     explicit QtAttoDateTime(const QDate &toDate, const QTime &toTime = QTime());
     QtAttoDateTime(int year, int month, int day, int hour, int minute, int second, qint64 atto);
 
-    // Qt
+    // Converting from/to Qt datatypes
     QDate toDate() const;
     QTime toTime() const;
     QDateTime toDateTime() const;
@@ -124,30 +110,29 @@ public:
     void incFemtoSeconds(qint64 femtoSeconds);
     void incAttoSeconds(qint64 attoSeconds);
 
-    // Presision
-    qint64 deciPersision() const;
-    qint64 centiPersision() const;
-    qint64 milliPersision() const;
-    qint64 microPersision() const;
-    qint64 nanoPersision() const;
-    qint64 picoPersision() const;
-    qint64 femtoPersision() const;
-    qint64 attoPersision() const;
-    void setDeciPersision(qint64 deciSeconds);
-    void setCentiPersision(qint64 centiSeconds);
-    void setMilliPersision(qint64 milliSeconds);
-    void setMicroPersision(qint64 microSeconds);
-    void setNanoPersision(qint64 nanoSeconds);
-    void setPicoPersision(qint64 picoSeconds);
-    void setFemtoPersision(qint64 femtoSeconds);
-    void setAttoPersision(qint64 attoSeconds);
+    // Precision
+    qint64 deciPrecision() const;
+    qint64 centiPrecision() const;
+    qint64 milliPrecision() const;
+    qint64 microPrecision() const;
+    qint64 nanoPrecision() const;
+    qint64 picoPrecision() const;
+    qint64 femtoPrecision() const;
+    qint64 attoPrecision() const;
+    void setDeciPrecision(qint64 deciSeconds);
+    void setCentiPrecision(qint64 centiSeconds);
+    void setMilliPrecision(qint64 milliSeconds);
+    void setMicroPrecision(qint64 microSeconds);
+    void setNanoPrecision(qint64 nanoSeconds);
+    void setPicoPrecision(qint64 picoSeconds);
+    void setFemtoPrecision(qint64 femtoSeconds);
+    void setAttoPrecision(qint64 attoSeconds);
 
-    // operators
+    // Operators
     QtAttoDateTime &operator = (const QtAttoDateTime &other);
 
     // Strings
     QString toString(const QString &format) const;
-
 public:
     // Conversion
     static qint64 attoFromDeci(qint64 deciSeconds);
@@ -184,64 +169,78 @@ public:
 
     // Strings
     static QtAttoDateTime fromString(const QString &string, const QString &format);
-
+private:
+    friend inline bool operator == (const QtAttoDateTime &a, const QtAttoDateTime &b);
+    friend inline bool operator > (const QtAttoDateTime &a, const QtAttoDateTime &b);
+    friend inline bool operator < (const QtAttoDateTime &a, const QtAttoDateTime &b);
+    friend inline bool operator >= (const QtAttoDateTime &a, const QtAttoDateTime &b);
+    friend inline bool operator <= (const QtAttoDateTime &a, const QtAttoDateTime &b);
+    friend inline bool operator != (const QtAttoDateTime &a, const QtAttoDateTime &b);
+    friend QtAttoDateTime operator + (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QtAttoDateTime operator - (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QtAttoDateTime &operator += (QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QtAttoDateTime &operator -= (QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QDebug operator << (QDebug dbg, const QtAttoDateTime &dt);
 private:
     // The QtAttoDateTime representation
     // Seconds, since 1 Jan 1970 (it is unixtime)
-    qint64 mSec;
-    // Attoseconds, as presision of the seconds [1..999 999 999 999 999 999]
-    qint64 mAts;
+    qint64 m_sec;
+    // Attoseconds, value in range [0..999 999 999 999 999 999]
+    qint64 m_ats;
 };
 Q_DECLARE_METATYPE(QtAttoDateTime)
 
-// ----------------------------------------------------------------------
+
 inline bool operator == (const QtAttoDateTime &a, const QtAttoDateTime &b)
 {
-    return (a.mSec == b.mSec) && (a.mAts == b.mAts);
+    return ((a.m_sec == b.m_sec) && (a.m_ats == b.m_ats));
 }
 
 inline bool operator > (const QtAttoDateTime &a, const QtAttoDateTime &b)
 {
-    return (a.mSec > b.mSec) || (((a.mSec == b.mSec) && (a.mAts > b.mAts)));
+    return ((a.m_sec > b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats > b.m_ats))));
 }
 
 inline bool operator < (const QtAttoDateTime &a, const QtAttoDateTime &b)
 {
-    return (a.mSec < b.mSec) || (((a.mSec == b.mSec) && (a.mAts < b.mAts)));
+    return ((a.m_sec < b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats < b.m_ats))));
 }
 
 inline bool operator >= (const QtAttoDateTime &a, const QtAttoDateTime &b)
 {
-    return (a.mSec > b.mSec) || (((a.mSec == b.mSec) && (a.mAts >= b.mAts)));
+    return ((a.m_sec > b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats >= b.m_ats))));
 }
 
 inline bool operator <= (const QtAttoDateTime &a, const QtAttoDateTime &b)
 {
-    return (a.mSec < b.mSec) || (((a.mSec == b.mSec) && (a.mAts <= b.mAts)));
+    return ((a.m_sec < b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats <= b.m_ats))));
 }
 
 inline bool operator != (const QtAttoDateTime &a, const QtAttoDateTime &b)
 {
-    return (a.mSec != b.mSec) || (a.mAts != b.mAts);
+    return ((a.m_sec != b.m_sec) || (a.m_ats != b.m_ats));
 }
 
-// ------------------------------------------------------------------------
+
 QtAttoDateTime operator + (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
 QtAttoDateTime operator - (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
 QtAttoDateTime &operator += (QtAttoDateTime &a, const QtAttoTimeDelta &b);
 QtAttoDateTime &operator -= (QtAttoDateTime &a, const QtAttoTimeDelta &b);
 
-// ------------------------------------------------------------------------
-QDebug operator << (QDebug dbg, const QtAttoDateTime &dt);
 
-// ------------------------------------------------------------------------
+QDebug operator << (QDebug dbg, const QtAttoDateTime &dt);
 //QDataStream &operator << (QDataStream &out, const QgeDateTime &dt);
 //QDataStream &operator >> (QDataStream &out, const QgeDateTime &dt);
 
-// ------------------------------------------------------------------------
+
 inline uint qHash(const QtAttoDateTime &key)
 {
-    return qHash(key.unixSeconds()) ^ qHash(key.attoPersision());
+    return qHash(key.unixSeconds()) ^ qHash(key.attoPrecision());
 }
+
 
 #endif

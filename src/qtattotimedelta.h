@@ -1,4 +1,4 @@
-// Copyright (C) 2013, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
+// Copyright (C) 2013-2014, Durachenko Aleksey V. <durachenko.aleksey@gmail.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -12,36 +12,19 @@
 //
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #ifndef QTATTOTIMEDELTA_H
 #define QTATTOTIMEDELTA_H
 
+#include "qtattotimeconst.h"
 #include <QtGlobal>
 #include <QMetaType>
-#include "qtattotimeconst.h"
-
-// ----------------------------------------------------------------------
 class QDebug;
 class QtAttoDateTime;
 
-// ----------------------------------------------------------------------
+
 class QtAttoTimeDelta
 {
-    friend inline bool operator == (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator != (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator >= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator <= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator >  (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend inline bool operator <  (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend QtAttoTimeDelta operator + (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend QtAttoTimeDelta operator - (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend QtAttoTimeDelta &operator += (QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend QtAttoTimeDelta &operator -= (QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
-    friend QtAttoDateTime operator + (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QtAttoDateTime operator - (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QtAttoDateTime &operator += (QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QtAttoDateTime &operator -= (QtAttoDateTime &a, const QtAttoTimeDelta &b);
-    friend QDebug operator << (QDebug dbg, const QtAttoTimeDelta &dt);
 public:
     // Constructors
     explicit QtAttoTimeDelta(qint64 seconds = 0, qint64 atto = 0);
@@ -105,77 +88,95 @@ public:
     void incAttoSeconds(qint64 attoSeconds);
 
     // Presision
-    qint64 deciPersision() const;
-    qint64 centiPersision() const;
-    qint64 milliPersision() const;
-    qint64 microPersision() const;
-    qint64 nanoPersision() const;
-    qint64 picoPersision() const;
-    qint64 femtoPersision() const;
-    qint64 attoPersision() const;
-    void setDeciPersision(qint64 deciSeconds);
-    void setCentiPersision(qint64 centiSeconds);
-    void setMilliPersision(qint64 milliSeconds);
-    void setMicroPersision(qint64 microSeconds);
-    void setNanoPersision(qint64 nanoSeconds);
-    void setPicoPersision(qint64 picoSeconds);
-    void setFemtoPersision(qint64 femtoSeconds);
-    void setAttoPersision(qint64 attoSeconds);
+    qint64 deciPrecision() const;
+    qint64 centiPrecision() const;
+    qint64 milliPrecision() const;
+    qint64 microPrecision() const;
+    qint64 nanoPrecision() const;
+    qint64 picoPrecision() const;
+    qint64 femtoPrecision() const;
+    qint64 attoPrecision() const;
+    void setDeciPrecision(qint64 deciSeconds);
+    void setCentiPrecision(qint64 centiSeconds);
+    void setMilliPrecision(qint64 milliSeconds);
+    void setMicroPrecision(qint64 microSeconds);
+    void setNanoPrecision(qint64 nanoSeconds);
+    void setPicoPrecision(qint64 picoSeconds);
+    void setFemtoPrecision(qint64 femtoSeconds);
+    void setAttoPrecision(qint64 attoSeconds);
 
     // operators
     QtAttoTimeDelta &operator = (const QtAttoTimeDelta &other);
-
+private:
+    friend inline bool operator == (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator != (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator >= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator <= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator >  (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend inline bool operator <  (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend QtAttoTimeDelta operator + (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend QtAttoTimeDelta operator - (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend QtAttoTimeDelta &operator += (QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend QtAttoTimeDelta &operator -= (QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
+    friend QtAttoDateTime operator + (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QtAttoDateTime operator - (const QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QtAttoDateTime &operator += (QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QtAttoDateTime &operator -= (QtAttoDateTime &a, const QtAttoTimeDelta &b);
+    friend QDebug operator << (QDebug dbg, const QtAttoTimeDelta &dt);
 private:
     // The QtAttoTimeDelta representation
     // Seconds, since 1 Jan 1970 (it is unixtime)
-    qint64 mSec;
-    //  Attoseconds, as presision of the seconds [1..999 999 999 999 999 999]
-    qint64 mAts;
+    qint64 m_sec;
+    // Attoseconds, value in range [0..999 999 999 999 999 999]
+    qint64 m_ats;
 };
 Q_DECLARE_METATYPE(QtAttoTimeDelta)
 
-// ----------------------------------------------------------------------
+
 inline bool operator == (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec == b.mSec) && (a.mAts == b.mAts);
+    return ((a.m_sec == b.m_sec) && (a.m_ats == b.m_ats));
 }
 
 inline bool operator != (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec != b.mSec) || (a.mAts != b.mAts);
+    return ((a.m_sec != b.m_sec) || (a.m_ats != b.m_ats));
 }
 
 inline bool operator >= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec > b.mSec) || (((a.mSec == b.mSec) && (a.mAts >= b.mAts)));
+    return ((a.m_sec > b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats >= b.m_ats))));
 }
 
 inline bool operator <= (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec < b.mSec) || (((a.mSec == b.mSec) && (a.mAts <= b.mAts)));
+    return ((a.m_sec < b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats <= b.m_ats))));
 }
 
 inline bool operator > (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec > b.mSec) || (((a.mSec == b.mSec) && (a.mAts > b.mAts)));
+    return ((a.m_sec > b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats > b.m_ats))));
 }
 
 inline bool operator < (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b)
 {
-    return (a.mSec < b.mSec) || (((a.mSec == b.mSec) && (a.mAts < b.mAts)));
+    return ((a.m_sec < b.m_sec)
+            || (((a.m_sec == b.m_sec) && (a.m_ats < b.m_ats))));
 }
 
-// ------------------------------------------------------------------------
+
 QtAttoTimeDelta operator + (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
 QtAttoTimeDelta operator - (const QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
 QtAttoTimeDelta &operator += (QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
 QtAttoTimeDelta &operator -= (QtAttoTimeDelta &a, const QtAttoTimeDelta &b);
 
-// ------------------------------------------------------------------------
-QDebug operator << (QDebug dbg, const QtAttoTimeDelta &dt);
 
-// ------------------------------------------------------------------------
+QDebug operator << (QDebug dbg, const QtAttoTimeDelta &dt);
 //QDataStream &operator << (QDataStream &out, const QgeTimeDelta &dt);
 //QDataStream &operator >> (QDataStream &out, const QgeTimeDelta &dt);
+
 
 #endif // QTATTOTIMEDELTA_H
