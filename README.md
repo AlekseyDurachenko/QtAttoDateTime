@@ -23,12 +23,16 @@ int main(int /*argc*/, char **/*argv*/)
 {
     QDateTime src(QDate(2013, 02, 12), QTime(10, 11, 12, 196), Qt::UTC);
     QtAttoDateTime dest(src);
+    QDateTime dest2 = dest.toDateTime();
 
     std::cout << "QDateTime     : "
               << src.toString("yyyy.MM.dd HH:mm:ss.zzz").toStdString()
               << std::endl;
     std::cout << "QtAttoDateTime: "
               << dest.toString("yyyy.MM.dd HH:mm:ss.zzz").toStdString()
+              << std::endl;
+    std::cout << "QDateTime     : "
+              << dest2.toString("yyyy.MM.dd HH:mm:ss.zzz").toStdString()
               << std::endl;
 
     return 0;
