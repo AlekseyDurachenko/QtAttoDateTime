@@ -29,6 +29,13 @@ private slots:
     void constructor_001();
     void constructor_002();
     void constructor_003();
+    void constructor_004();
+    void toDate();
+    void toTime();
+    void toDateTime();
+    void setDate();
+    void setTime();
+    void setDateTime();
 };
 
 
